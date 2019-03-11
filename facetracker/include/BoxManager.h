@@ -10,6 +10,7 @@ class BoxManager
     public: 
         vectorRect boxes;
         std::vector<std::string> ids;
+        std::vector<float> accuracies;
         double iouThreshold;
         int minArea;
 
@@ -33,6 +34,12 @@ class BoxManager
             this->ids.push_back(id);
         }
 
+        void addBox(cv::Rect box, std::string id, float acc) {
+            this->boxes.push_back(box);
+            this->ids.push_back(id);
+            this->accuracies.push_back(acc);
+        }
+
         bool isNewBox(cv::Rect box){
             if (box.width * box.height < minArea){
                 return false;
@@ -46,6 +53,19 @@ class BoxManager
             return true;
         }
 
+        int getBoxIdx(cv::Rect box) {
+            if (box.width * box.height < minArea) {
+                return -10;
+            }
+            for (int i=0; i < this->boxes.size() ; i++) {
+                double iou = _calIOU(box, boxes[i]);
+                if (iou >= this->iouThreshold) {
+                    return i;
+                }
+            }
+            return -1;
+        }
+
         double _calIOU( cv::Rect box1, cv::Rect box2){
             int xA = std::max(box1.x, box2.x);
             int yA = std::max(box1.y, box2.y);
@@ -57,13 +77,14 @@ class BoxManager
             int box2Area = box2.width * box2.height;
 
             double iou = (double)interArea / double(box1Area + box2Area - interArea);
-            std::cout << "IOU: " << iou << std::endl;
+            // std::cout << "IOU: " << iou << std::endl;
             return iou;
         }
 
         void remove(int i){
             this->boxes.erase(this->boxes.begin() + i);
             this->ids.erase(this->ids.begin() + i);
+            this->accuracies.erase(this->accuracies.begin() + i);
         }
 
         std::string getName(int i){

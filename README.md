@@ -1,6 +1,6 @@
-# mtcnn-kcf
+# Real-time face recognition with mtcnn, kcf tracker and arcface
 
-This is an inference implementation of MTCNN (Multi-task Cascaded Convolutional Network) to perform Face Detection and Alignment using OpenCV's DNN module. 
+This is an inference implementation of real time face recogtion, wholely written in C++ with TVM inference runtine. Using mtcnn for facedetection, kcf tracker and insightface model.
 
 ## MTCNN
 
@@ -16,28 +16,43 @@ You can read more about it here - https://github.com/opencv/opencv/wiki/Deep-Lea
 
 Note that at present there is no support to perform training in OpenCV's DNN module and if I understood correctly there is no intention either.
 
+## Insightface
+Deng, Jiankang and Guo, Jia and Niannan, Xue and Zafeiriou, Stefanos. ArcFace: Additive Angular Margin Loss for Deep Face Recognition. CVPR 2019. 
+
+https://github.com/deepinsight/insightface
+
 ### Requirements
 
 * OpenCV 3.4+
-* Boost FileSystem (1.58+)  [only required for the sample application]
+* Boost FileSystem (1.58+) 
 * CMake 3.2+
+* Clang 6.0+
+* TVM runtime
 
-### KCF tracker was added to improve runing time speed
+#### You can folowing [this doc file](install_requirements.md) or [official doc](https://docs.tvm.ai/install/from_source.html#) to install TVM runtime
+
+
 ### Build with flowing command
-    cd mtcnn-kcf
+Change two line cmake config in [facerecogtion model](facerecognition/CMakeLists.txt) to your TVM source that you downloaded:
+- set (DMLC_INCLUDE "/home/thongpb/works/tvm/3rdparty/dmlc-core/include")
+- set (DLPACK_INC "/home/thongpb/works/tvm/3rdparty/dlpack/include")
+
+Compile:
+
+    cd realtime-facereccpp
     mkdir build
     cd build
     cmake ..
-    cmake --build .
+    make -j8
 
 ### Sample command
-    ./facetracker/facetracker ../data/models/
+You can modify parameters in [params.xml](data/params.xml)
+    ./facerecognition/facerecognition ../data/params.xml
 
 
 ## Acknowledgments
-
 The MTCNN implementation take from https://github.com/golunovas/mtcnn-cpp
 
-The model files are taken from https://github.com/kpzhang93/MTCNN_face_detection_alignment/tree/master/code
-The image file "Aaron_Peirsol_0003.jpg" is from the LFW database (http://vis-www.cs.umass.edu/lfw/)
-The image files "dog.jpg" & "2007_007763.jpg" are from dlib's github repository (https://github.com/davisking/dlib/blob/master/examples/faces)
+The model used for facial feature extraction came from [insightface MODEL_ZOO](https://github.com/deepinsight/insightface/wiki/Model-Zoo) 
+
+The model files are taken from https://github.com/kpzhang93/MTCNN_face_detection_alignment/tree/master/code 

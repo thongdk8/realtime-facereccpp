@@ -44,5 +44,8 @@ target_link_libraries (
     ${MTCNN_LIB_NAME}
     ${LINK_OPTIONS})
 
+#export vars
+set (APP_INCLUDE_PATH  ${APP_INCLUDE_PATH} PARENT_SCOPE)
+
 #test
 enable_testing ()

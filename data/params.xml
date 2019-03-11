@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+
+<CONFIG>
+
+<CAM>0</CAM>
+<!-- PATH TO DATABASE -->
+<DATABASE_DIR>/home/thongpb/works/face_recognition/opencv-mtcnn/data/sample_db</DATABASE_DIR>
+<!-- PATH TO MTCNN MODEL -->
+<MTCNN_MODEL>/home/thongpb/works/face_recognition/opencv-mtcnn/data/models</MTCNN_MODEL>
+<!-- PATH TO FACE RECOGNITION MODEL -->
+<FACE_MODEL>/home/thongpb/works/face_recognition/opencv-mtcnn/data/mobilenet</FACE_MODEL>
+<!-- THRESHOLD FOR RECOGNITION -->
+<THRESHOLD>1.25</THRESHOLD>
+
+
+</CONFIG>

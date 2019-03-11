@@ -12,7 +12,6 @@
 *.pch
 
 # Compiled Dynamic libraries
-*.so
 *.dylib
 *.dll
 
@@ -36,3 +35,5 @@ _debug
 _release
 _xdebug
 .vscode
+
+data/resnet34
