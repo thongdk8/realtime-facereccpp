@@ -1,4 +1,4 @@
-# Real-time face recognition with mtcnn, kcf tracker and arcface
+# Real-time face recognition with mtcnn, kcf tracker and arcface (insightface)
 
 This is an inference implementation of real time face recogtion, wholely written in C++ with TVM inference runtine. Using mtcnn for facedetection, kcf tracker and insightface model.
 
@@ -8,16 +8,11 @@ This is an inference implementation of real time face recogtion, wholely written
 
 https://kpzhang93.github.io/MTCNN_face_detection_alignment/paper/spl.pdf
 
-## OpenCV's DNN module
-
-Since OpenCV 3.1 there is a module called DNN that provides the inference support. The module is capable of taking models & weights from various popular frameworks such as Caffe, tensorflow, darknet etc.
-
-You can read more about it here - https://github.com/opencv/opencv/wiki/Deep-Learning-in-OpenCV
-
-Note that at present there is no support to perform training in OpenCV's DNN module and if I understood correctly there is no intention either.
 
 ## Insightface
 Deng, Jiankang and Guo, Jia and Niannan, Xue and Zafeiriou, Stefanos. ArcFace: Additive Angular Margin Loss for Deep Face Recognition. CVPR 2019. 
+
+[ArXiv tecnical report](https://arxiv.org/abs/1801.07698)
 
 https://github.com/deepinsight/insightface
 
@@ -43,10 +38,11 @@ Compile:
     mkdir build
     cd build
     cmake ..
-    make -j8
+    make -j4
 
 ### Sample command
 You can modify parameters in [params.xml](data/params.xml)
+
     ./facerecognition/facerecognition ../data/params.xml
 
 
@@ -55,4 +51,4 @@ The MTCNN implementation take from https://github.com/golunovas/mtcnn-cpp
 
 The model used for facial feature extraction came from [insightface MODEL_ZOO](https://github.com/deepinsight/insightface/wiki/Model-Zoo) 
 
-The model files are taken from https://github.com/kpzhang93/MTCNN_face_detection_alignment/tree/master/code 
+The mtcnn model files are taken from https://github.com/kpzhang93/MTCNN_face_detection_alignment/tree/master/code 
